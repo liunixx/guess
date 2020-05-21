@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Guess</string>
+    <string name="please_enter_a_number">Please Enter a Number : (1~10)</string>
+    <string name="bigger">Bigger!!</string>
+    <string name="smaller">Smaller!!</string>
+    <string name="yes_you_got_it">Yes, You Got it !!</string>
+    <string name="dialog_title">Message</string>
+    <string name="ok">OK</string>
+</resources>
