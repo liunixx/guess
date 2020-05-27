@@ -7,4 +7,5 @@
     <string name="yes_you_got_it">讚 ! 猜對了 !</string>
     <string name="dialog_title">提示訊息</string>
     <string name="ok">確認</string>
+    <string name="excellent_guess">超神的! 數字就是</string>
 </resources>

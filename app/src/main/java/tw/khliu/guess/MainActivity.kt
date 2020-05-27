@@ -9,12 +9,12 @@ import androidx.appcompat.app.AlertDialog
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-   val secretNumber = SecretNumber()
+   var secretNumber = SecretNumber()
    val TAG:String=MainActivity::class.java.simpleName
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        Log.d("MainActivity", "Secret Number is : "+secretNumber.secret)
+        Log.d(TAG, "Secret Number is : "+secretNumber.secret)
     }
 
    fun check(view: View) {
@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
        } else if(diff>0) {
            msg=getString(R.string.smaller)
        }
+       tv_count.setText(secretNumber.count.toString())
        // Toast.makeText(this,msg,Toast.LENGTH_SHORT).show()
        AlertDialog.Builder(this)
            .setTitle(getString(R.string.dialog_title))
