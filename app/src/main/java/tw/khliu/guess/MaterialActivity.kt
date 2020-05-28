@@ -1,5 +1,7 @@
 package tw.khliu.guess
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -27,13 +29,22 @@ class MaterialActivity : AppCompatActivity() {
                     Log.d(TAG,"The Secret Number is : ${secretNumber.secret}")
                     et_number.setText("")
                     tv_count.setText(secretNumber.count.toString())
+                    showSaved()
                 })
                 .setNeutralButton("Cancel",null)
                 .show()
         }
         tv_count.setText(secretNumber.count.toString())
+        showSaved()
     }
 
+    fun showSaved() {
+        val count =getSharedPreferences("guess", Context.MODE_PRIVATE)
+            .getInt("REC_COUNTER",-1)
+        val nick =getSharedPreferences("guess", Context.MODE_PRIVATE)
+            .getString("REC_NICKNAME","")
+        Log.d(TAG, count.toString() + "/" + nick)
+    }
     fun check(view: View) {
         val n:Int = et_number.text.toString().toInt()
         var msg = getString(R.string.yes_you_got_it)
@@ -51,7 +62,13 @@ class MaterialActivity : AppCompatActivity() {
         AlertDialog.Builder(this)
             .setTitle(getString(R.string.dialog_title))
             .setMessage(msg)
-            .setPositiveButton(getString(R.string.ok),null)
+            .setPositiveButton(getString(R.string.ok),{dialog, which->
+                  if(diff==0) {
+                      val intent = Intent(this,RecordActivity::class.java)
+                      intent.putExtra("COUNTER",secretNumber.count)
+                      startActivity(intent)
+                  }
+            })
             .show()
     }
 
