@@ -15,27 +15,32 @@ import kotlinx.android.synthetic.main.content_material.*
 class MaterialActivity : AppCompatActivity() {
     var secretNumber = SecretNumber()
     val TAG=MaterialActivity::class.java.simpleName
+    val REQUEST_RECORD=100
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_material)
         setSupportActionBar(toolbar)
         Log.d(TAG,"The Secret Number is : ${secretNumber.secret}")
         fab.setOnClickListener { view ->
-            AlertDialog.Builder(this)
-                .setTitle("Replay Game")
-                .setMessage("Are You Sure ?")
-                .setPositiveButton(R.string.ok,{dialog,which ->
-                    secretNumber.reset()
-                    Log.d(TAG,"The Secret Number is : ${secretNumber.secret}")
-                    et_number.setText("")
-                    tv_count.setText(secretNumber.count.toString())
-                    showSaved()
-                })
-                .setNeutralButton("Cancel",null)
-                .show()
+            replay()
         }
         tv_count.setText(secretNumber.count.toString())
         showSaved()
+    }
+
+    private fun replay() {
+        AlertDialog.Builder(this)
+            .setTitle("Replay Game")
+            .setMessage("Are You Sure ?")
+            .setPositiveButton(R.string.ok, { dialog, which ->
+                secretNumber.reset()
+                Log.d(TAG, "The Secret Number is : ${secretNumber.secret}")
+                et_number.setText("")
+                tv_count.setText(secretNumber.count.toString())
+                showSaved()
+            })
+            .setNeutralButton("Cancel", null)
+            .show()
     }
 
     fun showSaved() {
@@ -66,10 +71,21 @@ class MaterialActivity : AppCompatActivity() {
                   if(diff==0) {
                       val intent = Intent(this,RecordActivity::class.java)
                       intent.putExtra("COUNTER",secretNumber.count)
-                      startActivity(intent)
+                      // startActivity(intent)
+                      startActivityForResult(intent,REQUEST_RECORD)
                   }
             })
             .show()
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode==REQUEST_RECORD) {
+            if(resultCode==RESULT_OK) {
+                val nickname=data?.getStringExtra("REC_NICKNAME")
+                Log.d(TAG,"onActivityResult : "+nickname)
+               replay()
+            }
+        }
+    }
 }
