@@ -30,8 +30,8 @@ class MaterialActivity : AppCompatActivity() {
 
     private fun replay() {
         AlertDialog.Builder(this)
-            .setTitle("Replay Game")
-            .setMessage("Are You Sure ?")
+            .setTitle(R.string.replay_title)
+            .setMessage(R.string.replay_confirm)
             .setPositiveButton(R.string.ok, { dialog, which ->
                 secretNumber.reset()
                 Log.d(TAG, "The Secret Number is : ${secretNumber.secret}")
@@ -39,7 +39,7 @@ class MaterialActivity : AppCompatActivity() {
                 tv_count.setText(secretNumber.count.toString())
                 showSaved()
             })
-            .setNeutralButton("Cancel", null)
+            .setNeutralButton(R.string.cancel, null)
             .show()
     }
 

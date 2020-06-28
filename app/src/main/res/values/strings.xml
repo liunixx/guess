@@ -6,5 +6,8 @@
     <string name="yes_you_got_it">Yes, You Got it !!</string>
     <string name="dialog_title">Message</string>
     <string name="ok">OK</string>
+    <string name="cancel">CANCEL</string>
     <string name="excellent_guess">Excellent! The number is</string>
+    <string name="replay_title">Replay Game</string>
+    <string name="replay_confirm">Are you sure ?</string>
 </resources>
